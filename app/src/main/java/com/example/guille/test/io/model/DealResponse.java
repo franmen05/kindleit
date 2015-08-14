@@ -51,6 +51,10 @@ public class DealResponse {
         public String getName() {
             return name;
         }
+
+        public String getUrl() {
+            return url;
+        }
     }
 
 //    GET and SET
