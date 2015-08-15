@@ -13,7 +13,6 @@ import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
@@ -50,7 +49,6 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
 
     private List<DealResponse> deals;
     private Context context;
-    private DealViewHolder _holder;
     private String _url;
 
 
@@ -69,10 +67,7 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
     @Override
     public void onBindViewHolder( DealViewHolder viewHolder, int position) {
 
-
         final DealResponse d=deals.get(position);
-
-
 
         viewHolder.description.setText(d.getDescription());
         viewHolder.description.setOnClickListener(new View.OnClickListener() {
@@ -89,10 +84,7 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
         viewHolder.sourcePag.setText(d.getSource().getName());
 
         loadAsyncImage(viewHolder, d.getPicture());
-
-
     }
-
 
     /**
      *
@@ -114,10 +106,6 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
                 error.printStackTrace();
             }
         });
-
-        // Get a RequestQueue
-        RequestQueue queue = VolleySingleton.getInstance(context.getApplicationContext()).getRequestQueue();
-
 
         // Add a request (in this example, called stringRequest) to your RequestQueue.
         VolleySingleton.getInstance(context).addToRequestQueue(imgRequest);
