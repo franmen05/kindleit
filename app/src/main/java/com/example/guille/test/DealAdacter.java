@@ -13,6 +13,7 @@ import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
@@ -32,6 +33,7 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
         TextView sourcePag;
         ImageView image;
         ShareActionProvider shareProvider;
+        Context context;
 
 
         public DealViewHolder(View itemView) {
@@ -39,6 +41,7 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
             description = (TextView ) itemView.findViewById(R.id.description );
             sourcePag= (TextView ) itemView.findViewById(R.id.source_pag);
             image= (ImageView) itemView.findViewById(R.id.image);
+            context = itemView.getContext();
 
 //            shareProvider=(ShareActionProvider) itemView.findViewById(R.id.compartir);
 
@@ -64,40 +67,46 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
 
 
     @Override
-    public void onBindViewHolder(DealViewHolder viewHolder, int position) {
+    public void onBindViewHolder( DealViewHolder viewHolder, int position) {
 
 
-        DealResponse d=deals.get(position);
-        _url=d.getSource().getUrl()+d.getUrl();
+        final DealResponse d=deals.get(position);
+
 
 
         viewHolder.description.setText(d.getDescription());
-        viewHolder.sourcePag.setText(d.getSource().getName());
-        loadAsyncImage(viewHolder, d.getPicture());
-
         viewHolder.description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,_url,Toast.LENGTH_LONG).show();
+                _url=d.getSource().getUrl()+d.getUrl();
+                Toast.makeText(v.getContext(), _url, Toast.LENGTH_LONG).show();
+
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(_url));
-                context.startActivity(intent);
+                v.getContext().startActivity(intent);
             }
         });
+        viewHolder.sourcePag.setText(d.getSource().getName());
+
+        loadAsyncImage(viewHolder, d.getPicture());
+
 
     }
+
 
     /**
      *
      * @param viewHolder
      * @param url
      */
-    public  void loadAsyncImage(DealViewHolder viewHolder,String url ){
-        _holder = viewHolder;
-        ImageRequest imgRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
+    public  void loadAsyncImage(final DealViewHolder viewHolder,String url ){
+//        _holder = viewHolder;
+
+        final ImageRequest imgRequest = new ImageRequest(url, new Response.Listener<Bitmap>() {
             @Override
             public void onResponse(Bitmap response) {
-                _holder.image.setImageBitmap(response);
+
+                viewHolder.image.setImageBitmap(response);
             }
         }, 0, 0, ImageView.ScaleType.FIT_XY, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
             @Override
@@ -105,6 +114,10 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
                 error.printStackTrace();
             }
         });
+
+        // Get a RequestQueue
+        RequestQueue queue = VolleySingleton.getInstance(context.getApplicationContext()).getRequestQueue();
+
 
         // Add a request (in this example, called stringRequest) to your RequestQueue.
         VolleySingleton.getInstance(context).addToRequestQueue(imgRequest);
