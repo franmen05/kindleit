@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_search"
             android:hint="Buscar (ej. Carro, Masajes, comida)"
-            android:layout_gravity="left" />
+            android:layout_gravity="left"
+            android:lines="1" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -31,6 +32,7 @@
 
 
     </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView  xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recycler"

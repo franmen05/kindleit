@@ -1,5 +1,6 @@
 package com.example.guille.test;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Dea
     private RecyclerView.LayoutManager layoutManager;
     private ImageButton bSearch;
     private EditText etSearch;
+    private Dialog d;
 
 
     @Override
@@ -34,14 +36,21 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Dea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        d= new Dialog(this);
+        d.setTitle("Cargando..");
+
         etSearch = (EditText)findViewById(R.id.et_search);
         bSearch = (ImageButton) findViewById(R.id.b_search);
         bSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String desc=etSearch.getText().toString();
-                if(!"".equalsIgnoreCase(desc))
+
+                String desc = etSearch.getText().toString();
+                if (!"".equalsIgnoreCase(desc)) {
                     EdealsApiAdacter.getApiService().getEdealsByDesc(desc, MainActivity.this);
+                    d.show();
+                }
             }
         });
 
@@ -50,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Dea
 
         layoutManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(layoutManager);
+
+        d.show();
 
         EdealsApiAdacter.getApiService().getEdeals(this);
     }
@@ -85,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Dea
 
         adapter = new DealAdacter(deals);
         recycler.setAdapter(adapter);
-
+        d.dismiss();
     }
 
     @Override

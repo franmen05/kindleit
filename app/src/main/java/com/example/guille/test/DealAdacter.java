@@ -54,7 +54,7 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
 
     private List<DealResponse> deals;
     private Context context;
-    private String _url;
+
 
 
     public DealAdacter(List<DealResponse> deals) {
@@ -74,24 +74,39 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
 
         final DealResponse d=deals.get(position);
 
+        viewHolder.sourcePag.setText(d.getSource().getName());
+        viewHolder.price.setText("RD $"+d.getDiscountedPrice());
+        viewHolder.discount.setText("RD $" + d.getOriginalPrice());
         viewHolder.description.setText(d.getDescription());
+
+
+
+        viewHolder.price.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToDeals(d.getSource().getUrl() + d.getUrl(),v);
+            }
+        });
+
+
         viewHolder.description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                _url = d.getSource().getUrl() + d.getUrl();
-                Toast.makeText(v.getContext(), _url, Toast.LENGTH_LONG).show();
+                goToDeals(d.getSource().getUrl() + d.getUrl(),v);
 
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(_url));
-                v.getContext().startActivity(intent);
             }
         });
-        viewHolder.sourcePag.setText(d.getSource().getName());
-        viewHolder.price.setText("RD $"+d.getDiscountedPrice());
-        viewHolder.discount.setText("RD $"+d.getOriginalPrice());
 
         loadAsyncImage(viewHolder, d.getPicture());
+    }
+
+    private void goToDeals(String _url, View v){
+        Toast.makeText(v.getContext(), _url, Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(_url));
+        v.getContext().startActivity(intent);
     }
 
     /**
