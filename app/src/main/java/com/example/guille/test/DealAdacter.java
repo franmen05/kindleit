@@ -30,6 +30,8 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
 
         TextView description;
         TextView sourcePag;
+        TextView discount;
+        TextView price;
         ImageView image;
         ShareActionProvider shareProvider;
         Context context;
@@ -39,6 +41,9 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
             super(itemView);
             description = (TextView ) itemView.findViewById(R.id.description );
             sourcePag= (TextView ) itemView.findViewById(R.id.source_pag);
+            price= (TextView ) itemView.findViewById(R.id.price);
+            discount= (TextView ) itemView.findViewById(R.id.discount);
+
             image= (ImageView) itemView.findViewById(R.id.image);
             context = itemView.getContext();
 
@@ -73,7 +78,8 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
         viewHolder.description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _url=d.getSource().getUrl()+d.getUrl();
+
+                _url = d.getSource().getUrl() + d.getUrl();
                 Toast.makeText(v.getContext(), _url, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -82,6 +88,8 @@ public class DealAdacter extends RecyclerView.Adapter<DealAdacter.DealViewHolder
             }
         });
         viewHolder.sourcePag.setText(d.getSource().getName());
+        viewHolder.price.setText("RD $"+d.getDiscountedPrice());
+        viewHolder.discount.setText("RD $"+d.getOriginalPrice());
 
         loadAsyncImage(viewHolder, d.getPicture());
     }

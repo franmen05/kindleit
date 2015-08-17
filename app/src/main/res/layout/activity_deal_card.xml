@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_width="125dp"
+            android:layout_height="185dp"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -23,27 +23,51 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/image"
-            android:text="Large Text"
+            android:text="source pag"
+            android:textColor="@color/primary_dark"
             android:overScrollMode="ifContentScrolls"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_alignLeft="@+id/source_pag"
             android:layout_below="@+id/source_pag"
             android:text="Small Text"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_marginBottom="4dp"
+            android:maxLines="7"/>
 
-        <View
-            android:id="@+id/linea"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_toRightOf="@+id/image"
-            android:background="#ffa4bfd5">
+        <LinearLayout
+            android:layout_alignLeft="@+id/description"
+            android:layout_below="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
 
-        </View>
+            <TextView
+                android:id="@+id/discount"
+                android:layout_width="92dp"
+                android:layout_height="30dp"
+                android:text="discount"
+                android:textColor="#ba252b"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                />
 
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="19dp"
+                android:text="price"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:background="#039b59"
+                android:textColor="#eef3ff"
+                android:gravity="center" />
+        </LinearLayout>
     </RelativeLayout>
+
 </android.support.v7.widget.CardView>

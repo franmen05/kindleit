@@ -9,7 +9,7 @@ public class ApiConstants {
 //    GET api/Deals?description={description}&offset={offset}&limit={limit}
 
     public static final String URL_BASE="http://edeals.do:4000";
-    public static final  String URL_DEALS="/api/deals?limit=86&offset=0";
+    public static final  String URL_DEALS="/api/deals?limit=400&offset=0";
 
     public static final  String PARAM_DESC="description";
 
