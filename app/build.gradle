@@ -35,7 +35,9 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.2.1'
 
     //optimizar  peticiones de  para  cargar imagenes
-    compile 'com.mcxiaoke.volley:library:1.0.+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     //progress...
     compile 'com.alokvnair:progresscircle:1.0.0'
+
+
 }

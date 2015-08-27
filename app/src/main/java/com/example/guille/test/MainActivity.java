@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Dea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         d= new Dialog(this);
         d.setTitle("Cargando..");
 
@@ -61,12 +60,9 @@ public class MainActivity extends AppCompatActivity implements Callback<List<Dea
         recycler.setLayoutManager(layoutManager);
 
         d.show();
-
         EdealsApiAdacter.getApiService().getEdeals(this);
     }
-    public void ejecutar(){
 
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
